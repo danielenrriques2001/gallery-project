@@ -13,11 +13,12 @@ export default function HomePage({ random, resize }) {
 
   const { data, error, isLoading } = useSWR(URL);
 
+
   if (!data) {return (<Error error = {'the Api is being Fetched'}/>)}
    
   if(data) {
     
-    let randomNumber = random(data.length);
+    let randomNumber = random(data.length) ?? random(1);
 
     let art = data[randomNumber];
 
@@ -25,8 +26,12 @@ export default function HomePage({ random, resize }) {
     
     return (
       <div>
-        <h1>{name}</h1>
+        
         <Image width={resize(width)} height={resize(height)} src={imageSource} alt={`This is ${name} from ${artist}`}></Image>
+        <div>
+          <h3>{`${name}`}</h3>
+          <h4>{`${artist}`}</h4>
+        </div>
       </div>
     );
 

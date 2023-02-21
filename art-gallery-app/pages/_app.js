@@ -4,6 +4,7 @@ import Navigator from "../components/Navigator/Navigator";
 
 const fetcher = async (url) => {
   
+  
   const res = await fetch(url)
 
   if(!res.ok) {
