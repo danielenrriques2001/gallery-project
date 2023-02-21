@@ -1,15 +1,33 @@
-import Link from 'next/link'
-import React from 'react'
+import Link from "next/link";
+import React from "react";
+import styled from "styled-components";
 
-const Navigator = () => {
+export default function Navigator() {
   return (
-    <nav>
-        <Link href='/'>Spotlight</Link>
-        <Link href='/gallery'>Gallery</Link>
-        <Link href='/favourites'>Favourites</Link>
-        
-    </nav>
-  )
+    <StyledNav>
+      <StyledLink href="/">Spotlight</StyledLink>
+      <StyledLink href="/gallery">Gallery</StyledLink>
+      <StyledLink href="/favourites">Favourites</StyledLink>
+    </StyledNav>
+  );
 }
 
-export default Navigator
+const StyledNav = styled.nav`
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  background-color: hsl(0, 4%, 96%);
+  border-top: 1px solid hsl(0, 2%, 90%);
+`;
+
+const StyledLink = styled(Link)`
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-left: 1px solid hsl(0, 2%, 90%);
+`;
