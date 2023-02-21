@@ -1,6 +1,9 @@
 import GlobalStyle from "../styles";
 import useSWR, { SWRConfig } from "swr";
 import Navigator from "../components/Navigator/Navigator";
+import { useImmer } from "use-immer";
+
+const [artPieceInfo, updateArtPieceInfo] = useImmer([{x: 1}])
 
 const fetcher = async (url) => {
   

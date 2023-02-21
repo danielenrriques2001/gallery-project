@@ -9,12 +9,28 @@ export default function Slug({ resize }) {
   const router = useRouter();
   const { slug } = router.query;
   const piece = data.find((pieceAlt) => slug === pieceAlt.slug);
-  
 
+  let isFavourite = false;
+
+  function handleToggleFavourite(slug) {
+    if (data.find((pieceAlt) => slug === pieceAlt.slug)) {
+      console.log("toogle works");
+      isFavourite = !isFavourite;
+      console.log(isFavourite);
+    }
+  }
 
   if (piece)
     return (
       <>
+        <button
+          alt="favourite"
+          onClick={() => {
+            handleToggleFavourite(slug);
+          }}
+        >
+          *
+        </button>
         <Image
           onClick={() => router.push(`/gallery`)}
           width={resize(piece.dimensions.width)}

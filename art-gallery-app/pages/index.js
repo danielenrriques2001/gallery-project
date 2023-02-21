@@ -20,7 +20,7 @@ export default function HomePage({ random, resize }) {
     
     let randomNumber = random(data.length) ?? random(1);
 
-    let art = data[randomNumber];
+    const art = data[randomNumber];
 
     const {artist, name, imageSource, dimensions: {width, height}} = art;
     
