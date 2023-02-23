@@ -1,41 +1,68 @@
 import GlobalStyle from "../styles";
 import useSWR, { SWRConfig } from "swr";
 import Navigator from "../components/Navigator/Navigator";
+import { useState, useEffect } from "react";
 import { useImmer } from "use-immer";
+import { resizeImage, random, fetcher, URL } from "../components/utils/utils";
+import {useImmerLocalStorageState} from '../components/utils/localstorageimmer';
+import { useRouter } from "next/router";
 
-const [artPieceInfo, updateArtPieceInfo] = useImmer([{x: 1}])
-
-const fetcher = async (url) => {
-  
-  
-  const res = await fetch(url)
-
-  if(!res.ok) {
-    const error = new Error('There is a error, more details');
-
-    error.info = await res.json();
-    error.status = res.status;
-    throw error;
-  }
-
-  return res.json();
-}
-
-const resizeImage = size =>  size / 4;
-
-const random = (number) => Math.floor(Math.random() * (number + 1));
 
 export default function App({ Component, pageProps }) {
+
+
+  
+ const [artPiecesInfo, updateArtPiecesInfo] = useImmerLocalStorageState("art-pieces-info",{ defaultValue: [] });
+
+ useEffect(() => {localStorage.setItem('fav_art',JSON.stringify(artPiecesInfo)) }, [artPiecesInfo])
+
+ const { data, error, isLoading } = useSWR(URL, fetcher);
+
+ const router = useRouter();
+
+ const pieces = data; 
+
+  if (error) return <h1>{error}</h1>;
+
+  function handleToggleFavorite(slug) {
+
+    updateArtPiecesInfo((draft) => {
+      const artPieceLike = draft.find((piece) => piece.slug === slug);
+     
+      if (!artPieceLike) {
+        return [
+          ...draft,
+          {
+            slug,
+            isFavorite: true,
+            comments: [],
+          },
+        ];
+      } else {
+        artPieceLike.isFavorite = !artPieceLike.isFavorite;
+        return draft;
+      }
+    });
+
+   
+  }
+ 
   return (
     <>
       <GlobalStyle />
-      <SWRConfig value={{ fetcher }}>
+      <SWRConfig>
         <Component 
         {...pageProps} 
         random={random}
-        resize = {resizeImage} />
+        resize = {resizeImage} 
+        pieces = {pieces}
+        isLoading =  {isLoading}
+        handleToggleFavorite  = {handleToggleFavorite}
+        artPiecesInfo = {artPiecesInfo}
+        router = {router}
+        />
         <Navigator />
       </SWRConfig>
     </>
   );
-}
+  }

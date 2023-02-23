@@ -1,51 +1,45 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import ArtPiecePrev from "../components/ArtPiecePrev/ArtPiecePrev";
+import Button from "../components/Button/Button";
+import Color from '../components/Color/Color';
 
-export default function Slug({ resize }) {
-  const URL = `https://example-apis.vercel.app/api/art`;
-  const { data, error, isLoading } = useSWR(URL);
-
-  const router = useRouter();
-  const { slug } = router.query;
-  const piece = data.find((pieceAlt) => slug === pieceAlt.slug);
-
-  let isFavourite = false;
-
-  function handleToggleFavourite(slug) {
-    if (data.find((pieceAlt) => slug === pieceAlt.slug)) {
-      console.log("toogle works");
-      isFavourite = !isFavourite;
-      console.log(isFavourite);
-    }
-  }
-
-  if (piece)
+export default function Slug({ resize, data, handleToggleFavorite, pieces, router }) {
+  
+  if(pieces){
+      
+      const { slug } = router.query;
+      
+      const piece = pieces.find((pieceAlt) => slug === pieceAlt.slug);
+      console.log(piece)
     return (
       <>
-        <button
-          alt="favourite"
-          onClick={() => {
-            handleToggleFavourite(slug);
-          }}
-        >
-          *
-        </button>
-        <Image
+      <ArtPiecePrev
           onClick={() => router.push(`/gallery`)}
+          title = {piece.title}
+          artist = {piece.artist}
           width={resize(piece.dimensions.width)}
           height={resize(piece.dimensions.height)}
-          src={piece.imageSource}
-          alt={`This is ${piece.name} from ${piece.artist}`}
-        ></Image>
+          source={piece.imageSource}
+          handleToggleFavorite = {handleToggleFavorite}
+          isSlug = {true}
+        />
+       
         <div>
-          <h3>{`${piece.name}`}</h3>
-          <h4>{`${piece.artist}`}</h4>
-          <h5>{`${piece.year}`}</h5>
-          <h5>{`${piece.genre}`}</h5>
+          {
+            piece.colors.map((color) => {
+              return (
+                <Color color = {color}></Color>
+              )
+            })
+          }
         </div>
+       
       </>
-    );
-
-  if (isLoading) return <h1>Is Loading...</h1>;
+    )} else {
+      return( <h1>Is Loading...</h1>);
 }
+    }
+
+ 

@@ -11,17 +11,21 @@
   },
   "dependencies": {
     "@next/font": "^13.0.6",
+    "@react-spring/web": "^9.6.1",
     "eslint": "8.29.0",
-    "eslint-config-next": "13.0.6",
+    "eslint-config-next": "^13.1.6",
     "immer": "^9.0.19",
     "local-storage": "^2.0.0",
-    "next": "13.0.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.3.4",
+    "react-loading": "^2.0.3",
     "styled-components": "^5.3.6",
     "swr": "^2.0.3",
     "uid": "^2.0.1",
-    "use-immer": "^0.8.1"
+    "use-immer": "^0.8.1",
+    "use-local-storage-state": "^18.1.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
