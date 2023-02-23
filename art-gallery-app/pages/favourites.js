@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react'
 import Image from 'next/image';
 import { Loading } from '../components/utils/utils'; 
+import styled from "styled-components";
+
 import ArtPiecePrev from '../components/ArtPiecePrev/ArtPiecePrev';
 const favourites = ({artPiecesInfo, handleToggleFavorite, pieces, resize, router }) => {
 
@@ -28,15 +30,18 @@ const favourites = ({artPiecesInfo, handleToggleFavorite, pieces, resize, router
       });
      
       if(favorites.length < 1) {
-        return (<h1>Ey jude...</h1>)
+        return (<Loading type={'spin'} 
+        color={'#000000'}
+        width={550}
+        height={550}/>)
       }
       
       return (
         <>
-          <h2>My Favorites</h2>
+          <Title>My Favorites</Title>
           {favorites.map((piece, id) => {
               return (
-                <>
+                <Wrapper>
                    <ArtPiecePrev
                       onClick={() => router.push(`/gallery`)}
                       title = {piece.title}
@@ -46,7 +51,7 @@ const favourites = ({artPiecesInfo, handleToggleFavorite, pieces, resize, router
                       source={piece.imageSource}
                       handleToggleFavorite = {handleToggleFavorite}
         />
-                </>
+                </Wrapper>
               );
             })}
         </>
@@ -56,3 +61,21 @@ const favourites = ({artPiecesInfo, handleToggleFavorite, pieces, resize, router
   }
 
 export default favourites;
+
+const Wrapper = styled.div`
+  
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+`;
+
+const Title = styled.h1`
+
+color: gray;
+font-size: 25px;
+text-transform: uppercase;
+text-align: center;
+
+`;

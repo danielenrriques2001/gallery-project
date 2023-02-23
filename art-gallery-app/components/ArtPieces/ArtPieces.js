@@ -3,8 +3,9 @@ import ArtPiecePrev from '../ArtPiecePrev/ArtPiecePrev';
 import styled from "styled-components";
 import {SpotlightTitle} from '../styles';
 
-const ArtPieces = ({pieces, handleToggleFavorite}) => {
-  console.log('art pieces')
+const ArtPieces = ({pieces, handleToggleFavorite, router}) => {
+  
+
     return (
 
       <>  

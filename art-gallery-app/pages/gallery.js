@@ -4,12 +4,12 @@ import Button from '../components/Button/Button';
 import ArtPieces from "../components/ArtPieces/ArtPieces";
 import { Loading } from "../components/utils/utils";
 
-const gallery = ({ resize, pieces, handleToggleFavorite }) => {
+const gallery = ({ resize, pieces, handleToggleFavorite, router }) => {
 
     if(pieces) {
       return (
         <>
-          <ArtPieces pieces = {pieces} handleToggleFavorite = {handleToggleFavorite}/>
+          <ArtPieces pieces = {pieces} handleToggleFavorite = {handleToggleFavorite} router={router}/>
         </>
       )
     } else {

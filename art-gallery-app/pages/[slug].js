@@ -4,6 +4,8 @@ import useSWR from "swr";
 import ArtPiecePrev from "../components/ArtPiecePrev/ArtPiecePrev";
 import Button from "../components/Button/Button";
 import Color from '../components/Color/Color';
+import styled from "styled-components";
+
 
 export default function Slug({ resize, data, handleToggleFavorite, pieces, router }) {
   
@@ -12,9 +14,9 @@ export default function Slug({ resize, data, handleToggleFavorite, pieces, route
       const { slug } = router.query;
       
       const piece = pieces.find((pieceAlt) => slug === pieceAlt.slug);
-      console.log(piece)
+
     return (
-      <>
+      <Wrapper>
       <ArtPiecePrev
           onClick={() => router.push(`/gallery`)}
           title = {piece.title}
@@ -26,7 +28,7 @@ export default function Slug({ resize, data, handleToggleFavorite, pieces, route
           isSlug = {true}
         />
        
-        <div>
+        <ColorWraper>
           {
             piece.colors.map((color) => {
               return (
@@ -34,12 +36,27 @@ export default function Slug({ resize, data, handleToggleFavorite, pieces, route
               )
             })
           }
-        </div>
+        </ColorWraper>
        
-      </>
+      </Wrapper>
     )} else {
       return( <h1>Is Loading...</h1>);
 }
     }
 
  
+  const ColorWraper = styled.div`
+  
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  `;
+
+  const Wrapper = styled.div`
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+  `;
