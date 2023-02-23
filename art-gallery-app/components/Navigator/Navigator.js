@@ -5,9 +5,9 @@ import styled from "styled-components";
 export default function Navigator() {
   return (
     <StyledNav>
-      <StyledLink href="/">Spotlight</StyledLink>
-      <StyledLink href="/gallery">Gallery</StyledLink>
-      <StyledLink href="/favourites">Favourites</StyledLink>
+      <StyledLink replace href="/">Spotlight</StyledLink>
+      <StyledLink replace href="/gallery">Gallery</StyledLink>
+      <StyledLink replace href="/favourites">Favourites</StyledLink>
     </StyledNav>
   );
 }

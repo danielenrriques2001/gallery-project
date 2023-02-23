@@ -59,7 +59,6 @@ export default function App({ Component, pageProps }) {
         isLoading =  {isLoading}
         handleToggleFavorite  = {handleToggleFavorite}
         artPiecesInfo = {artPiecesInfo}
-        router = {router}
         />
         <Navigator />
       </SWRConfig>
